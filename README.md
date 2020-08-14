@@ -1,3 +1,5 @@
 # Brandingdong_backend
 
-Keep Going
+Brandi clone coding project
+
+Keep Going!
