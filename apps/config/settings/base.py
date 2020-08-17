@@ -35,6 +35,7 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 PROJECT_APPS = [
@@ -42,6 +43,15 @@ PROJECT_APPS = [
 ]
 
 THIRD_PARTY_PACKAGES = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+
     'phonenumber_field',
 ]
 
@@ -57,14 +67,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# AUTH
 AUTH_USER_MODEL = 'users.CustomUser'
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,3 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# django-phonenumber-field
+PHONENUMBER_DEFAULT_REGION = 'KR'
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
