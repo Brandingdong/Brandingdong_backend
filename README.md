@@ -22,3 +22,10 @@ $ aws configure
 
 $ python manage.py collectstatic
 ```
+
+## install docker on ec2
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+## 
+
+
