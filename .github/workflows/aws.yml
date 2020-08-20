@@ -22,9 +22,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: create requirements.txt
-        run: pip freeze > requirements_base.txt
-
       - name: Docker Build and Push
         uses: docker/build-push-action@v1
         with:
