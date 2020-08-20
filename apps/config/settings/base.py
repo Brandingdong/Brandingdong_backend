@@ -59,6 +59,8 @@ THIRD_PARTY_PACKAGES = [
     'rest_auth',
 
     'phonenumber_field',
+
+    'drf_yasg',
 ]
 
 INSTALLED_APPS = DJANGO_DEFAULT_INSTALLED_APPS + PROJECT_APPS + THIRD_PARTY_PACKAGES
@@ -116,14 +118,6 @@ DATABASES = {
         'PORT': os.environ['DB_PORT'],
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'sqlite3',
-#     }
-# }
-# SECRET_KEY = '-%_wvpgz)t+&sk!fbv#@-bx^z2v*u6*39z26l)%8ux=363ms6+'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
