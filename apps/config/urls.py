@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Brandingdong API",
+        default_version='v1',
+        description='''Repository: https://github.com/Brandingdong/Brandingdong_backend
+        \n 브랜드 클론 코딩 API''',
+        terms_of_service="",
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
+    path('docs/', schema_view.with_ui('redoc', cache_timeout=0)),
+    path('', include('users.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -13,3 +13,19 @@ $ cd <root directory>
 $ pyenv local <VE name>
 $ pip install -r requirements.txt
 ```
+
+
+## static files 적용하는 법
+```
+aws iam 등록
+$ aws configure
+
+$ python manage.py collectstatic
+```
+
+## install docker on ec2
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+## 
+
+
