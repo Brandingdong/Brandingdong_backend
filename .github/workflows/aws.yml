@@ -1,0 +1,46 @@
+on:
+  push:
+    branches:
+      - test
+
+name: Deploy to Amazon ECS
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: create requirements.txt
+        run: pip freeze > requirements_base.txt
+
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: qu3vipon/brandingdong
+          tags: latest
+
+      - name: Login to EC2 and Server Init
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.BRANDINGDONG_PEM }}
+          script: |
+            docker pull qu3vipon/brandingdong
+            docker stop brandingdong && docker system prune -f
+            docker run -d -it --rm -p 80:80 --name brandingdong qu3vipon/brandingdong bash
+            docker exec brandingdong supervisord -c /srv/brandingdong/.config/production/supervisord.conf
