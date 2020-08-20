@@ -13,3 +13,12 @@ $ cd <root directory>
 $ pyenv local <VE name>
 $ pip install -r requirements.txt
 ```
+
+
+## static files 적용하는 법
+```
+aws iam 등록
+$ aws configure
+
+$ python manage.py collectstatic
+```

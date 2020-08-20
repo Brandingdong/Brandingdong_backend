@@ -6,6 +6,7 @@ from phonenumber_field.serializerfields import PhoneNumberField
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_auth.serializers import LoginSerializer as DefaultLoginSerializer
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer as DefaultTokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 USER = get_user_model()
@@ -80,3 +81,16 @@ class PasswordChangeSerializer(serializers.Serializer):
     current_password = serializers.CharField(required=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
+
+
+##########################
+### for Documentation
+##########################
+
+class TokenRefreshResultSerializer(serializers.Serializer):
+    access = serializers.CharField()
+
+
+class TokenRefreshSerializer(DefaultTokenRefreshSerializer):
+    def to_representation(self, instance):
+        return TokenRefreshResultSerializer(instance).data
