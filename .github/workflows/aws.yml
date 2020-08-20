@@ -40,4 +40,5 @@ jobs:
             docker pull qu3vipon/brandingdong
             docker stop brandingdong && docker system prune -f
             docker run -d -it --rm -p 80:80 --name brandingdong qu3vipon/brandingdong bash
+            docker cp .env brandingdong:/srv/brandingdong/
             docker exec brandingdong supervisord -c /srv/brandingdong/.config/production/supervisord.conf
