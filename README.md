@@ -26,6 +26,9 @@ $ python manage.py collectstatic
 ## install docker on ec2
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 
-## 
+## copy local ENV to ec2
+### 배포 전 만든시 로컬 .evn가 server에 적용 되어있어야 함 
+scp -i ~/.ssh/PEM -r `PROJECT-PATH`/Brandingdong_backend/.env ec2-user@`HOST`:~/.env
+
 
 
