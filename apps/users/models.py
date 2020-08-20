@@ -12,14 +12,11 @@ class CustomUser(AbstractUser):
         max_length=50,
         unique=True,
         validators=[username_validator],
-        error_messages={
-            'unique': "A user with that username already exists.",
-        },
     )
     email = models.EmailField(unique=True)
-    mobile = PhoneNumberField(unique=True)
+    phonenumber = PhoneNumberField(unique=True, null=True)
 
-    REQUIRED_FIELDS = ['email', 'mobile']
+    REQUIRED_FIELDS = ['email', 'phonenumber']
 
     class Meta:
         verbose_name = 'user'

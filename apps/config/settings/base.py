@@ -15,11 +15,11 @@ import os
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env_path = os.path.dirname(os.path.dirname(BASE_DIR)) + '/.env'
 enf_file = environ.Env.read_env(env_file=env_path)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -76,6 +76,7 @@ MIDDLEWARE = [
 # AUTH
 AUTH_USER_MODEL = 'users.CustomUser'
 SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = None
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -107,7 +108,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'HOST': os.environ['DB_HOST'],
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
@@ -115,6 +116,14 @@ DATABASES = {
         'PORT': os.environ['DB_PORT'],
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'sqlite3',
+#     }
+# }
+# SECRET_KEY = '-%_wvpgz)t+&sk!fbv#@-bx^z2v*u6*39z26l)%8ux=363ms6+'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
