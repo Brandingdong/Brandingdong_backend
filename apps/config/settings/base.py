@@ -13,7 +13,18 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+sentry_sdk.init(
+    dsn="https://735dd44cce24433681dd9ba37a48600d@o203727.ingest.sentry.io/5403825",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate = 1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,7 +56,8 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'events',
 ]
 
 THIRD_PARTY_PACKAGES = [
@@ -61,6 +73,8 @@ THIRD_PARTY_PACKAGES = [
     'phonenumber_field',
 
     'drf_yasg',
+
+    'raven.contrib.django.raven_compat',
 ]
 
 INSTALLED_APPS = DJANGO_DEFAULT_INSTALLED_APPS + PROJECT_APPS + THIRD_PARTY_PACKAGES
