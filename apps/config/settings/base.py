@@ -41,11 +41,11 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'events',
 ]
 
 PROJECT_APPS = [
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'events',
 ]
 
 THIRD_PARTY_PACKAGES = [
