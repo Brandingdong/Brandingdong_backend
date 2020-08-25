@@ -7,3 +7,4 @@ from .packages.s3 import *
 WSGI_APPLICATION = 'config.wsgi.production.application'
 ALLOWED_HOSTS = ['*']
 DEBUG = False
+

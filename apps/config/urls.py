@@ -31,8 +31,13 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
+    path('sentry-debug/', trigger_error),
     path('docs/', schema_view.with_ui('redoc', cache_timeout=0)),
     path('', include('users.urls')),
     path('admin/', admin.site.urls),
+    path('events/', include('events.url') )
 ]

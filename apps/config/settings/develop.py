@@ -11,3 +11,5 @@ LOGOUT_REDIRECT_URL = '/'
 INSTALLED_APPS += [
     'django_extensions',
 ]
+
+DEBUG = True
