@@ -17,7 +17,7 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ROOT_DIR = os.path.dirname(BASE_DIR)
 env_path = os.path.dirname(os.path.dirname(BASE_DIR)) + '/.env'
 enf_file = environ.Env.read_env(env_file=env_path)
 
@@ -26,13 +26,12 @@ enf_file = environ.Env.read_env(env_file=env_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
 
 DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,6 +41,7 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'events',
 ]
 
 PROJECT_APPS = [
