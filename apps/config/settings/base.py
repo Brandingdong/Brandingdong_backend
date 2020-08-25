@@ -60,20 +60,7 @@ PROJECT_APPS = [
 ]
 
 THIRD_PARTY_PACKAGES = [
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-
-    'phonenumber_field',
-
-    'drf_yasg',
-
-    'raven.contrib.django.raven_compat',
+    gin
 ]
 
 INSTALLED_APPS = DJANGO_DEFAULT_INSTALLED_APPS + PROJECT_APPS + THIRD_PARTY_PACKAGES
