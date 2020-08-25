@@ -52,7 +52,6 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'events',
 ]
 
 PROJECT_APPS = [
