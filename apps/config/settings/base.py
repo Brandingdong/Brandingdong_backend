@@ -13,11 +13,22 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+sentry_sdk.init(
+    dsn="https://735dd44cce24433681dd9ba37a48600d@o203727.ingest.sentry.io/5403825",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ROOT_DIR = os.path.dirname(BASE_DIR)
 env_path = os.path.dirname(os.path.dirname(BASE_DIR)) + '/.env'
 enf_file = environ.Env.read_env(env_file=env_path)
 
@@ -26,13 +37,12 @@ enf_file = environ.Env.read_env(env_file=env_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
 
 DJANGO_DEFAULT_INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,7 +55,8 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'events',
 ]
 
 THIRD_PARTY_PACKAGES = [
