@@ -2,16 +2,16 @@ from django.db import models
 
 
 class Category(models.Model):
-    category = models.CharField(max_length=32)
+    name = models.CharField(max_length=32)
 
 
 class SubCategory(models.Model):
-    category = models.ForeignKey('products.Category', on_delete=models.CASCADE)
-    sub_category = models.CharField(max_length=32)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    name = models.CharField(max_length=32)
 
 
 class Brand(models.Model):
-    brand = models.CharField(max_length=32)
+    name = models.CharField(max_length=32)
 
 
 class Product(models.Model):
@@ -31,7 +31,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=1, choices=DELIVERY_CHOICES, blank=True)
     is_discount = models.BooleanField()
-    discount_rate = models.PositiveIntegerField(default=0)
+    discount_rate = models.DecimalField(max_digits=3, decimal_places=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=SALE_STATUS, blank=True, default='1')
@@ -39,27 +39,27 @@ class Product(models.Model):
 
 class ProductOption(models.Model):
     SIZE_CHOICES = [
-        ('1', 'X-SMALL'),
-        ('2', 'SMALL'),
-        ('3', 'MEDIUM'),
-        ('4', 'LARGE'),
+        ('XS', 'X-SMALL'),
+        ('S', 'SMALL'),
+        ('M', 'MEDIUM'),
+        ('L', 'LARGE'),
     ]
     COLOR_CHOICES = [
-        ('1', 'WHITE'),
-        ('2', 'BLACK'),
-        ('3', 'GRAY'),
-        ('4', 'RED'),
-        ('5', 'BLUE'),
-        ('6', 'GREEN'),
-        ('7', 'YELLOW'),
-        ('8', 'PURPLE'),
-        ('9', 'BROWN'),
-        ('10', 'etc'),
+        ('WH', 'WHITE'),
+        ('BL', 'BLACK'),
+        ('GY', 'GRAY'),
+        ('RD', 'RED'),
+        ('BL', 'BLUE'),
+        ('GR', 'GREEN'),
+        ('YL', 'YELLOW'),
+        ('PP', 'PURPLE'),
+        ('BR', 'BROWN'),
+        ('etc', 'etc'),
     ]
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    size = models.CharField(max_length=1, choices=SIZE_CHOICES, blank=True)
-    color = models.CharField(max_length=2, choices=COLOR_CHOICES, blank=True)
+    size = models.CharField(max_length=2, choices=SIZE_CHOICES, blank=True)
+    color = models.CharField(max_length=3, choices=COLOR_CHOICES, blank=True)
     stock = models.PositiveIntegerField(default=0)
 
 
@@ -68,7 +68,7 @@ class ProductInfo(models.Model):
     detail = models.TextField(blank=True)
 
 
-class OrderInfo(models.Model):
+class SellerInfo(models.Model):
     product = models.OneToOneField('Product', on_delete=models.CASCADE)
     _company_name = models.CharField('상호명', max_length=20, blank=True)
     _representative = models.CharField('대표자', max_length=10, blank=True)
