@@ -9,7 +9,7 @@ from products.models import Category, SubCategory, Brand, Product, ProductOption
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'category')
+        fields = ('id', 'name')
 
 
 '''서브 카테고리'''
@@ -20,7 +20,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SubCategory
-        fields = ('id', 'category', 'sub_category')
+        fields = ('id', 'category', 'name')
 
 
 '''브랜드 카테고리'''
@@ -29,7 +29,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('id', 'brand')
+        fields = ('id', 'name')
 
 
 '''제품상세 옵션 (사이즈, 색상, 재고등)'''
