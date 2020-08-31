@@ -16,25 +16,25 @@ class Brand(models.Model):
 
 class Product(models.Model):
     DELIVERY_CHOICES = [
-        ('1', 'OneDayDelivery'),
-        ('2', 'RegularDelivery'),
+        ('OD', 'OneDayDelivery'),
+        ('REG', 'RegularDelivery'),
     ]
     SALE_STATUS = [
-        ('1', 'ForSale'),
-        ('2', 'StopSale'),
-        ('3', 'SoldOut'),
+        ('FS', 'ForSale'),
+        ('SS', 'StopSale'),
+        ('SO', 'SoldOut'),
     ]
 
     sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
-    delivery = models.CharField(max_length=1, choices=DELIVERY_CHOICES, blank=True)
+    delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
     is_discount = models.BooleanField()
     discount_rate = models.DecimalField(max_digits=3, decimal_places=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1, choices=SALE_STATUS, blank=True, default='1')
+    status = models.CharField(max_length=2, choices=SALE_STATUS, blank=True, default='FS')
 
 
 class ProductOption(models.Model):
