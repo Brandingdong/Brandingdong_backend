@@ -1,12 +1,18 @@
 from rest_framework import serializers
 
-from apps.products.models import Category, SubCategory, Brand, Product, ProductOption, ProductInfo
+from products.models import Category, SubCategory, Brand, Product, ProductOption, ProductInfo, ProductImage, \
+    ProductInfoImage
+
+'''카테고리'''
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'category')
+
+
+'''서브 카테고리'''
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
@@ -17,35 +23,107 @@ class SubCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'category', 'sub_category')
 
 
+'''브랜드 카테고리'''
+
+
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields = ('id', 'brand')
 
 
+'''제품상세 옵션 (사이즈, 색상, 재고등)'''
+
+
+class ProductOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductOption
+        fields = ('id', 'product', 'color', 'size', 'stock')
+
+
+'''제품페이지 상단 메인이미지'''
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = (
+            'pk',
+            'image',
+        )
+
+
+'''제품정보이미지'''
+
+
+class ProductInfoImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductInfoImage
+        fields = (
+            'pk',
+            'image',
+        )
+
+
+'''제품 페이지 시리얼라이져'''
+
+
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
     sub_category = SubCategorySerializer()
     brand = BrandSerializer()
+    options = ProductOptionSerializer()
+    main_img = ProductImageSerializer()
 
     class Meta:
         model = Product
         fields = (
-        'id', 'sub_category', 'category', 'brand', 'name', 'price', 'registered_at', 'quantity', 'delivery', 'status',
-        'is_discount', 'discount_rate')
+            'id',
+            'sub_category',
+
+            'main_img',
+            'brand',
+            'name',
+
+            'price',
+            'is_discount',
+            'discount_rate',
+            'delivery',
+
+            'options',
+
+            'status',
+            'created_at',
+            'modified_at',
+        )
 
 
-class ProductOptionSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
-
-    class Meta:
-        model = ProductOption
-        fields = ('id', 'product', 'size', 'color')
+'''제품 하단 정보 시리얼라이저'''
 
 
 class ProductInfoSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
+    info_img = ProductInfoImageSerializer()
 
     class Meta:
         models = ProductInfo
-        fields = ('id', 'product', 'image', 'detail', 'info')
+        fields = ('id', 'product', 'info_img', 'detail')
+
+
+'''제품 주문 정보 시리얼라이저'''
+
+
+class OrderInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = ProductInfo
+        fields = ('id',
+                  'product',
+                  'company_name',
+                  'representative',
+                  'license_num',
+                  'mail_order_num',
+                  'biz_location',
+                  'customer_service',
+                  'model_size',
+                  'shipping_info',
+                  'exchange_refund_info',
+                  'product_notice',
+                  )
