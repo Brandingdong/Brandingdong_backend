@@ -82,7 +82,7 @@ class SellerInfo(models.Model):
     product_notice = models.CharField('상품정보고시', max_length=100, blank=True)
 
     '''
-    Order_info 기본값
+    SellerInfo 기본값
     '''
 
     @property
