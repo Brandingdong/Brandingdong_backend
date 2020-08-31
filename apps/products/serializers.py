@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from products.models import Category, SubCategory, Brand, Product, ProductOption, ProductInfo, ProductImage, \
-    ProductInfoImage
+    ProductInfoImage, SellerInfo
 
 '''카테고리'''
 
@@ -111,9 +111,9 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 '''제품 주문 정보 시리얼라이저'''
 
 
-class OrderInfoSerializer(serializers.ModelSerializer):
+class SellerInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        models = ProductInfo
+        models = SellerInfo
         fields = ('id',
                   'product',
                   'company_name',
