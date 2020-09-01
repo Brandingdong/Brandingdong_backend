@@ -11,5 +11,7 @@ router.register(r'option', views.ProductOptionViewSet)
 router.register(r'images', views.ProductImageViewSet)
 router.register(r'info_image', views.ProductInfoImageViewSet)
 router.register(r'info', views.ProductInfoViewSet)
+router.register(r'sell_info', views.SellingInfoViewSet)
+
 
 urlpatterns = router.urls

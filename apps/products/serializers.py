@@ -85,7 +85,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'name',
 
             'price',
-            'is_discount',
             'discount_rate',
             'delivery',
 
@@ -111,7 +110,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 '''제품 주문 정보 시리얼라이저'''
 
 
-class SellerInfoSerializer(serializers.ModelSerializer):
+class SellingInfoSerializer(serializers.ModelSerializer):
     class Meta:
         models = SellerInfo
         fields = ('id',

@@ -30,7 +30,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
-    is_discount = models.BooleanField()
     discount_rate = models.DecimalField(max_digits=3, decimal_places=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -68,7 +67,7 @@ class ProductInfo(models.Model):
     detail = models.TextField(blank=True)
 
 
-class SellerInfo(models.Model):
+class SellingInfo(models.Model):
     product = models.OneToOneField('Product', on_delete=models.CASCADE)
     _company_name = models.CharField('상호명', max_length=20, blank=True)
     _representative = models.CharField('대표자', max_length=10, blank=True)

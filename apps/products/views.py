@@ -1,10 +1,10 @@
 from rest_framework import viewsets
 
 from products.models import Product, Category, SubCategory, Brand, ProductOption, ProductImage, ProductInfoImage, \
-    ProductInfo, SellerInfo
+    ProductInfo, SellingInfo
 from products.serializers import ProductSerializer, CategorySerializer, SubCategorySerializer, BrandSerializer, \
     ProductImageSerializer, ProductOptionSerializer, ProductInfoImageSerializer, ProductInfoSerializer, \
-    SellerInfoSerializer
+    SellingInfoSerializer
 
 '''카테고리'''
 
@@ -76,6 +76,6 @@ class ProductInfoViewSet(viewsets.ModelViewSet):
 '''주문정보'''
 
 
-class SellerInfoViewSet(viewsets.ModelViewSet):
-    queryset = SellerInfo.objects.all()
-    serializer_class = SellerInfoSerializer
+class SellingInfoViewSet(viewsets.ModelViewSet):
+    queryset = SellingInfo.objects.all()
+    serializer_class = SellingInfoSerializer
