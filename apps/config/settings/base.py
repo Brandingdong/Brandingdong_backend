@@ -57,6 +57,7 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
 PROJECT_APPS = [
     'users.apps.UsersConfig',
     'events',
+    'products',
 ]
 
 THIRD_PARTY_PACKAGES = [
