@@ -29,7 +29,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'intro')
 
 
 '''제품상세 옵션 (사이즈, 색상, 재고등)'''
@@ -86,6 +86,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
             'price',
             'discount_rate',
+            'sales_count',
             'delivery',
 
             'options',
@@ -104,7 +105,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         models = ProductInfo
-        fields = ('id', 'product', 'info_img', 'detail')
+        fields = ('id', 'product', 'info_img', 'text')
 
 
 '''제품 주문 정보 시리얼라이저'''
