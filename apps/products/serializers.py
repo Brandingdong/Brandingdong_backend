@@ -103,7 +103,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
     info_img = ProductInfoImageSerializer()
 
     class Meta:
-        models = ProductInfo
+        model = ProductInfo
         fields = ('id', 'product', 'info_img', 'detail')
 
 
@@ -112,7 +112,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 
 class SellingInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        models = SellingInfo
+        model = SellingInfo
         fields = ('id',
                   'product',
                   'company_name',
