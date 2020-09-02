@@ -30,7 +30,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
-    discount_rate = models.DecimalField(max_digits=3, decimal_places=1)
+    discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=SALE_STATUS, blank=True, default='FS')
