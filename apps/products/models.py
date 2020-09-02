@@ -12,6 +12,7 @@ class SubCategory(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length=32)
+    intro = models.CharField(max_length=100, blank=True)
 
 
 class Product(models.Model):
@@ -29,6 +30,7 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
+    sales_count = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
     discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -64,7 +66,7 @@ class ProductOption(models.Model):
 
 class ProductInfo(models.Model):
     product = models.OneToOneField('Product', on_delete=models.CASCADE)
-    detail = models.TextField(blank=True)
+    text = models.TextField(blank=True)
 
 
 class SellingInfo(models.Model):
