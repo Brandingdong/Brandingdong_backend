@@ -13,7 +13,7 @@ class SubCategory(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=32)
     intro = models.CharField(max_length=100, blank=True)
-    brand_img = models.ImageField(upload_to='products', verbose_name='이미지', blank=True)
+    brand_img = models.ImageField(upload_to='brand_img', verbose_name='이미지', blank=True)
 
 
 class Product(models.Model):
@@ -31,9 +31,9 @@ class Product(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField(default=0)
+    discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
     sales_count = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
-    discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=SALE_STATUS, blank=True, default='FS')
@@ -77,7 +77,9 @@ class SellingInfo(models.Model):
     _license_num = models.CharField('사업자등록번호', max_length=100, blank=True)
     _mail_order_num = models.CharField('통신판매업번호', max_length=100, blank=True)
     _biz_location = models.CharField('사업장소재지', max_length=100, blank=True)
-    _customer_service = models.TextField('스토어고객센터', max_length=255, blank=True)
+    _biz_hour = models.CharField('영업시간', max_length=255, blank=True)
+    _company_email = models.CharField('메일', max_length=255, blank=True)
+    _company_call = models.CharField('전화번호', max_length=255, blank=True)
     model_size = models.TextField('모델사이즈정보', max_length=255, blank=True)
     _shipping_info = models.TextField('배송정보', max_length=255, blank=True)
     _exchange_refund_info = models.TextField('교환/환불정보', max_length=255, blank=True)
@@ -138,26 +140,34 @@ class SellingInfo(models.Model):
         self._biz_location = value
 
     @property
-    def customer_service(self):
-        if not self._customer_service:
-            return (f'주중 10:00 AM ~ 10:00 PM, 주말 및 공휴일 휴무\n'
-                    f'이메일 : brandiffcs@brandi.co.kr\n'
-                    f'전화번호 : 1577-3452')
-        return self._customer_service
+    def business_hour(self):
+        if not self._business_hour:
+            return (f'주중 10:00 AM ~ 10:00 PM, 주말 및 공휴일 휴무')
+        return self._business_hour
 
-    @customer_service.setter
-    def customer_service(self, value):
-        self._customer_service = value
+    @business_hour.setter
+    def business_hour(self, value):
+        self._business_hour = value
 
-    # @property
-    # def model_size(self):
-    #     if not self._model_size:
-    #         return ('04535 ) 서울 중구 소공로 70 (충무로1가, 서울중앙우체국청사)브랜디 물류센터')
-    #     return self._model_size
-    #
-    # @model_size.setter
-    # def model_size(self, value):
-    #     self._model_size = value
+    @property
+    def company_email(self):
+        if not self._company_email:
+            return (f'이메일 : brandiffcs@brandi.co.kr')
+        return self._company_email
+
+    @company_email.setter
+    def company_email(self, value):
+        self._company_email = value
+
+    @property
+    def company_call(self):
+        if not self._company_call:
+            return (f'전화번호 : 1577-3452')
+        return self._company_call
+
+    @company_call.setter
+    def company_call(self, value):
+        self._company_call = value
 
     @property
     def shipping_info(self):
@@ -251,9 +261,9 @@ class SellingInfo(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품이미지')
-    image = models.ImageField(upload_to='products', verbose_name='이미지', blank=True)
+    image = models.ImageField(upload_to='main_img', verbose_name='이미지', blank=True)
 
 
 class ProductInfoImage(models.Model):
-    product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지')
-    image = models.ImageField(upload_to='products', verbose_name='이미지', blank=True)
+    product_info = models.ForeignKey('ProductInfo', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지')
+    image = models.ImageField(upload_to='info_img', verbose_name='이미지', blank=True)

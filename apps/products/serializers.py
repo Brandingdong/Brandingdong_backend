@@ -29,7 +29,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('id', 'name', 'intro')
+        fields = ('id', 'name', 'intro', 'brand_img')
 
 
 '''제품상세 옵션 (사이즈, 색상, 재고등)'''
@@ -49,6 +49,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = (
             'pk',
+            'product',
             'image',
         )
 
@@ -61,6 +62,7 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
         model = ProductInfoImage
         fields = (
             'pk',
+            'product_info',
             'image',
         )
 
@@ -71,7 +73,6 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     sub_category = SubCategorySerializer()
     brand = BrandSerializer()
-    options = ProductOptionSerializer()
     main_img = ProductImageSerializer()
 
     class Meta:
@@ -88,8 +89,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'discount_rate',
             'sales_count',
             'delivery',
-
-            'options',
 
             'status',
             'created_at',
@@ -121,7 +120,9 @@ class SellingInfoSerializer(serializers.ModelSerializer):
                   'license_num',
                   'mail_order_num',
                   'biz_location',
-                  'customer_service',
+                  'biz_hour',
+                  'company_email',
+                  'company_call',
                   'model_size',
                   'shipping_info',
                   'exchange_refund_info',
