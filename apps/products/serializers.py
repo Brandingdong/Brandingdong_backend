@@ -20,7 +20,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SubCategory
-        fields = ('id', 'category', 'name')
+        fields = ('id', 'category', 'sub_name')
 
 
 '''브랜드 카테고리'''
@@ -49,7 +49,6 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = (
             'pk',
-            'product',
             'image',
         )
 
@@ -62,7 +61,6 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
         model = ProductInfoImage
         fields = (
             'pk',
-            'product_info',
             'image',
         )
 

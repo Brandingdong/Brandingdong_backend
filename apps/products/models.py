@@ -7,7 +7,7 @@ class Category(models.Model):
 
 class SubCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    name = models.CharField(max_length=32)
+    sub_name = models.CharField(max_length=32)
 
 
 class Brand(models.Model):

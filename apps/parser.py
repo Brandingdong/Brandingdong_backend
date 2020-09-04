@@ -41,7 +41,7 @@ def simple_uploaded_file(url):
 def parse_brandi():
     data = {}
     how_many = 1
-    sleep = 3
+    sleep = 2
 
     driver = webdriver.Chrome('./chromedriver')
     driver.set_window_size(600, 800)
@@ -56,7 +56,7 @@ def parse_brandi():
         sub_cate = soup.select('ul[data-v-867c5692]')[i].select('li')
 
         # 카테고리 저장
-        # Category(name=data['category']).save()
+        Category.objects.get_or_create(name=data['category'])
 
         for j in range(1, len(sub_cate)):
             # 서브카테고리
@@ -64,8 +64,8 @@ def parse_brandi():
             link = 'https://www.brandi.co.kr' + sub_cate[j].a.get('href')
 
             # 서브카테고리 저장
-            SubCategory(category=i+1, name=data['sub_category']).save()
-
+            SubCategory.objects.get_or_create(category=Category.objects.get(name=data['category']),
+                                              sub_name=data['sub_category'])
             driver.get(link)
             time.sleep(sleep)
             soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -171,50 +171,50 @@ def parse_brandi():
                 # Category(name=data['category']).save() 위에서 저장
                 # SubCategory(category=i, name=data['sub_category']).save() 위에서 저장
                 # 브랜드저장
-                if not Brand.objects.exists(name=data['brand_name']):
+
+                if not Brand.objects.get(name=data['brand_name']):
                     img = simple_uploaded_file(data['brand_img'])
-                    Brand(name=data['brand_name'], intro=data['intro'], brand_img=img).save()
-                #제품저장
-                Product(
-                    sub_category=j+1,
-                    brand=Brand.objects.get(name=data['brand_name']).id,
+                    Brand.objects.create(name=data['brand_name'], intro=data['intro'], brand_img=img)
+                # 제품저장
+                Product.objects.get_or_create(
+                    sub_category=SubCategory.objects.get(sub_name=data['sub_category']),
+                    brand=Brand.objects.get(name=data['brand_name']),
                     name=data['title'],
                     price=data['price'],
                     discount_rate=data['discount_rate'],
                     sales_count=data['sales_count'],
-                    delivery=data['delivery'],
-                ).save()
-                #제품메인이미지저장
-                for l in data['main_img']:
-                    img = simple_uploaded_file(l)
-                    ProductInfoImage(
-                        product=k+1,
-                        image=img,
-                    )
+                )
+                # # 제품메인이미지저장
+                product = Product.objects.get(name=data['title'])
+                # for l in data['main_img']:
+                #     img = simple_uploaded_file(l)
+                #     ProductImage.objects.get_or_create(
+                #         product=product,
+                #         image=img,
+                #     )
 
-                #제품정보저장
-                ProductInfo(
-                    product=k+1,
+                # 제품정보저장
+                ProductInfo.objects.get_or_create(
+                    product=product,
                     text=data['info_text'],
                 )
 
-                #제품정보이미지저장
+                # 제품정보이미지저장
                 for l in data['info_img']:
                     img = simple_uploaded_file(l)
-                    ProductInfoImage(
-                        product=k+1,
+                    ProductInfoImage.objects.get_or_create(
+                        product_info=ProductInfo.objects.get(text=data['info_text']),
                         image=img,
-                    ).save()
-
+                    )
 
                 if data['company_name'] == '주식회사 브랜디':
-                    SellingInfo(
-                        product=k+1,
+                    SellingInfo.objects.get_or_create(
+                        product=product,
                         model_size=data['model_size'],
-                    ).save()
+                    )
                 else:
-                    SellingInfo(
-                        product=k+1,
+                    SellingInfo.objects.get_or_create(
+                        product=product,
                         company_name=data['company_name'],
                         representative=data['representative'],
                         license_num=data['license_num'],
@@ -226,7 +226,7 @@ def parse_brandi():
                         model_size=data['model_size'],
                         shipping_info=data['shipping_info'],
                         exchange_refund_info=data['exchange_refund_info'],
-                    ).save()
+                    )
 
                 # 뒤로가기
                 driver.back()

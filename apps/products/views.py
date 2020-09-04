@@ -61,7 +61,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all() \
         .select_related('sub_category', 'sub_category__category', 'brand')\
         .prefetch_related('main_img')
-
     serializer_class = ProductSerializer
 
 
