@@ -13,6 +13,7 @@ class SubCategory(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=32)
     intro = models.CharField(max_length=100, blank=True)
+    brand_img = models.ImageField(upload_to='products', verbose_name='이미지', blank=True)
 
 
 class Product(models.Model):
