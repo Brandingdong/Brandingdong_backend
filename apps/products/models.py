@@ -11,6 +11,7 @@ class SubCategory(models.Model):
 
 
 class Brand(models.Model):
+    brand_cate = models.CharField(max_length=32)
     name = models.CharField(max_length=32)
     intro = models.CharField(max_length=100, blank=True)
     brand_img = models.ImageField(upload_to='brand_img', verbose_name='이미지', blank=True)
@@ -27,6 +28,7 @@ class Product(models.Model):
         ('SO', 'SoldOut'),
     ]
 
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
     sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

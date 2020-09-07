@@ -21,6 +21,9 @@ class SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategory
         fields = ('id', 'category', 'sub_name')
+        read_only_fields = (
+            'category',
+        )
 
 
 '''브랜드 카테고리'''
@@ -69,7 +72,6 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    sub_category = SubCategorySerializer()
     brand = BrandSerializer()
     main_img = ProductImageSerializer()
 
@@ -77,6 +79,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = (
             'id',
+            'category',
             'sub_category',
 
             'main_img',
@@ -92,7 +95,11 @@ class ProductSerializer(serializers.ModelSerializer):
             'created_at',
             'modified_at',
         )
-
+        read_only_fields = (
+            'sub_category',
+            'brand',
+            'main_img',
+        )
 
 '''제품 하단 정보 시리얼라이저'''
 
@@ -103,6 +110,9 @@ class ProductInfoSerializer(serializers.ModelSerializer):
     class Meta:
         models = ProductInfo
         fields = ('id', 'product', 'info_img', 'text')
+        read_only_fields = (
+            'info_img',
+        )
 
 
 '''제품 주문 정보 시리얼라이저'''
