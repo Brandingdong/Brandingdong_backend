@@ -58,6 +58,7 @@ PROJECT_APPS = [
     'users.apps.UsersConfig',
     'events',
     'products',
+    'orders',
 ]
 
 THIRD_PARTY_PACKAGES = [
