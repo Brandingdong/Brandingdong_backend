@@ -11,7 +11,7 @@ class SubCategory(models.Model):
 
 
 class Brand(models.Model):
-    brand_cate = models.CharField(max_length=32)
+    brand_cate = models.CharField(max_length=32, blank=True)
     name = models.CharField(max_length=32)
     intro = models.CharField(max_length=100, blank=True)
     brand_img = models.ImageField(upload_to='brand_img', verbose_name='이미지', blank=True)
