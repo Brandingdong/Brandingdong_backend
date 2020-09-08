@@ -41,4 +41,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('events/', include('events.url')),
     path('products/', include('products.urls')),
+    path('orders/', include('orders.urls')),
 ]
