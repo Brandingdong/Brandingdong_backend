@@ -110,6 +110,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductInfo
+
         fields = (
             'id',
             'product',
