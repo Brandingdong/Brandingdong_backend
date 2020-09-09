@@ -1,4 +1,5 @@
-
+import json
+import os
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import re
@@ -20,11 +21,11 @@ def parse_brandi():
     # 기본값 0
     brand_page_num = 0
     # 기본값 0
-    cate_page_num = 4
+    cate_page_num = 5
     # 기본값 1
-    sub_page_num = 1
+    sub_page_num = 3
     # 기본값 0
-    pd_page_num = 8
+    pd_page_num = 16
 
     brand_cate = ['/categories/all', '/categories/all/brand', '/categories/all/beauty']
 
@@ -45,9 +46,9 @@ def parse_brandi():
         time.sleep(sleep)
 
         # 아우터 클릭로 스왑
-        for j in range(cate_page_num, cate_num):
-            if cate_page_num != 0:
-                cate_page_num = 0
+        for j in range(cate_page_num, cate_num+1):
+            # if cate_page_num != 0:
+            #     cate_page_num = 0
             button = driver.find_element_by_xpath(f"//ul[@id='sub_gnb']/li[{j + 1}]/a")
             driver.execute_script("arguments[0].click();", button)
             time.sleep(1)

@@ -2,7 +2,6 @@ import requests
 from django.core.files.uploadedfile import SimpleUploadedFile
 import os
 import json
-import sys
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.develop")
 file_path = "./crawling/"
@@ -23,7 +22,7 @@ def simple_uploaded_file(url):
 
 def create_data(data_count):
     for i in range(data_count):
-        input_dic=[]
+        input_dic = []
         with open(f'./crawling/{file_list[i]}', 'r') as json_file:
             data = json.load(json_file)
             # 카테고리

@@ -73,7 +73,7 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     brand = BrandSerializer()
-    main_img = ProductImageSerializer()
+    main_img = ProductImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -101,15 +101,21 @@ class ProductSerializer(serializers.ModelSerializer):
             'main_img',
         )
 
+
 '''제품 하단 정보 시리얼라이저'''
 
 
 class ProductInfoSerializer(serializers.ModelSerializer):
-    info_img = ProductInfoImageSerializer()
+    info_img = ProductInfoImageSerializer(many=True, read_only=True)
 
     class Meta:
-        models = ProductInfo
-        fields = ('id', 'product', 'info_img', 'text')
+        model = ProductInfo
+        fields = (
+            'id',
+            'product',
+            'info_img',
+            'text',
+        )
         read_only_fields = (
             'info_img',
         )
@@ -120,7 +126,7 @@ class ProductInfoSerializer(serializers.ModelSerializer):
 
 class SellingInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        models = SellingInfo
+        model = SellingInfo
         fields = ('id',
                   'product',
                   'company_name',

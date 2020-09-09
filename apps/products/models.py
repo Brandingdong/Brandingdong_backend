@@ -262,10 +262,10 @@ class SellingInfo(models.Model):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품이미지')
+    product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품이미지', related_name='main_img')
     image = models.ImageField(upload_to='main_img', verbose_name='이미지', blank=True)
 
 
 class ProductInfoImage(models.Model):
-    product_info = models.ForeignKey('ProductInfo', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지')
+    product_info = models.ForeignKey('ProductInfo', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지', related_name='info_img')
     image = models.ImageField(upload_to='info_img', verbose_name='이미지', blank=True)
