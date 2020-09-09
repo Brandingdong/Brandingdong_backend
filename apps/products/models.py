@@ -74,8 +74,8 @@ class ProductInfo(models.Model):
 
 class SellingInfo(models.Model):
     product = models.OneToOneField('Product', on_delete=models.CASCADE)
-    _company_name = models.CharField('상호명', max_length=20, blank=True)
-    _representative = models.CharField('대표자', max_length=10, blank=True)
+    _company_name = models.CharField('상호명', max_length=50, blank=True)
+    _representative = models.CharField('대표자', max_length=20, blank=True)
     _license_num = models.CharField('사업자등록번호', max_length=100, blank=True)
     _mail_order_num = models.CharField('통신판매업번호', max_length=100, blank=True)
     _biz_location = models.CharField('사업장소재지', max_length=100, blank=True)
