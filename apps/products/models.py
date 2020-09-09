@@ -142,14 +142,14 @@ class SellingInfo(models.Model):
         self._biz_location = value
 
     @property
-    def business_hour(self):
-        if not self._business_hour:
+    def biz_hour(self):
+        if not self._biz_hour:
             return (f'주중 10:00 AM ~ 10:00 PM, 주말 및 공휴일 휴무')
-        return self._business_hour
+        return self._biz_hour
 
-    @business_hour.setter
-    def business_hour(self, value):
-        self._business_hour = value
+    @biz_hour.setter
+    def biz_hour(self, value):
+        self._biz_hour = value
 
     @property
     def company_email(self):
