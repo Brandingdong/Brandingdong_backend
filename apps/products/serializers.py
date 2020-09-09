@@ -20,7 +20,10 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SubCategory
-        fields = ('id', 'category', 'name')
+        fields = ('id', 'category', 'sub_name')
+        read_only_fields = (
+            'category',
+        )
 
 
 '''브랜드 카테고리'''
@@ -29,7 +32,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'intro', 'brand_img')
 
 
 '''제품상세 옵션 (사이즈, 색상, 재고등)'''
@@ -69,15 +72,14 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    sub_category = SubCategorySerializer()
     brand = BrandSerializer()
-    options = ProductOptionSerializer()
-    main_img = ProductImageSerializer()
+    main_img = ProductImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
         fields = (
             'id',
+            'category',
             'sub_category',
 
             'main_img',
@@ -86,13 +88,17 @@ class ProductSerializer(serializers.ModelSerializer):
 
             'price',
             'discount_rate',
+            'sales_count',
             'delivery',
-
-            'options',
 
             'status',
             'created_at',
             'modified_at',
+        )
+        read_only_fields = (
+            'sub_category',
+            'brand',
+            'main_img',
         )
 
 
@@ -100,11 +106,20 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductInfoSerializer(serializers.ModelSerializer):
-    info_img = ProductInfoImageSerializer()
+    info_img = ProductInfoImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = ProductInfo
-        fields = ('id', 'product', 'info_img', 'detail')
+
+        fields = (
+            'id',
+            'product',
+            'info_img',
+            'text',
+        )
+        read_only_fields = (
+            'info_img',
+        )
 
 
 '''제품 주문 정보 시리얼라이저'''
@@ -120,7 +135,9 @@ class SellingInfoSerializer(serializers.ModelSerializer):
                   'license_num',
                   'mail_order_num',
                   'biz_location',
-                  'customer_service',
+                  'biz_hour',
+                  'company_email',
+                  'company_call',
                   'model_size',
                   'shipping_info',
                   'exchange_refund_info',
