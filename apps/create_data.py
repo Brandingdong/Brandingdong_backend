@@ -13,15 +13,17 @@ django.setup()
 from products.models import *
 
 
+
 def simple_uploaded_file(url):
     basename = os.path.basename(url)
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     binary_data = response.content
     return SimpleUploadedFile(basename, binary_data)
 
 
 def create_data(data_count):
-    for i in range(data_count):
+    start_num = 120
+    for i in range(start_num, data_count):
         input_dic = []
         with open(f'./crawling/{file_list[i]}', 'r') as json_file:
             data = json.load(json_file)
@@ -49,22 +51,25 @@ def create_data(data_count):
         brand_name = data['brand_name']
         trf = Brand.objects.filter(name=brand_name).exists()
         if not trf:
-            brand_cate = data['brand_cate']
-            intro = data['intro']
-            img = simple_uploaded_file(data['brand_img'])
-            input_dic = dict(
-                brand_cate=brand_cate,
-                name=brand_name,
-                intro=intro,
-                brand_img=img
-            )
-            Brand.objects.create(**input_dic)
+            try:
+                brand_cate = data['brand_cate']
+                intro = data['intro']
+                img = simple_uploaded_file(data['brand_img'])
+                input_dic = dict(
+                    brand_cate=brand_cate,
+                    name=brand_name,
+                    intro=intro,
+                    brand_img=img
+                )
+                Brand.objects.create(**input_dic)
+            except:
+                pass
         # 제품
         title = data['title'],
         trf = Product.objects.filter(name=title).exists()
         if not trf:
             price = data['price']
-            discount_rate = data['discount_rate']
+            discount_rate = data['discount_rate'] / 100
             sales_count = data['sales_count']
             sub_ins = SubCategory.objects.get(sub_name=sub_category)
             brand_ins = Brand.objects.get(name=brand_name)
@@ -94,7 +99,10 @@ def create_data(data_count):
         trf = SellingInfo.objects.filter(product=product_ins).exists()
         if not trf:
             company_name = data['company_name']
-            model_size = data['model_size']
+            try:
+                model_size = data['model_size']
+            except:
+                model_size = ""
             if company_name == '주식회사 브랜디':
                 input_dic = dict(
                     product=product_ins,
@@ -117,7 +125,7 @@ def create_data(data_count):
                     license_num=license_num,
                     mail_order_num=mail_order_num,
                     biz_location=biz_location,
-                    business_hour=business_hour,
+                    biz_hour=business_hour,
                     company_email=company_email,
                     company_call=company_call,
                     model_size=model_size,
@@ -130,26 +138,34 @@ def create_data(data_count):
         for url in data['main_img']:
             trf = ProductImage.objects.filter(image=url).exists()
             if not trf:
-                img = simple_uploaded_file(url)
-                input_dic = dict(
-                    product=product_ins,
-                    image=img
-                )
-                ProductImage.objects.create(**input_dic)
+                try:
+                    img = simple_uploaded_file(url)
+                    input_dic = dict(
+                        product=product_ins,
+                        image=img
+                    )
+                    ProductImage.objects.create(**input_dic)
+                except:
+                    pass
 
         # 제품정보이미지저장
         product_info_ins = ProductInfo.objects.get(product=product_ins)
         for url in data['info_img']:
             trf = ProductImage.objects.filter(image=url).exists()
             if not trf:
-                img = simple_uploaded_file(url)
-                input_dic = dict(
-                    product_info=product_info_ins,
-                    image=img
-                )
-                ProductInfoImage.objects.create(**input_dic)
+                try:
+                    img = simple_uploaded_file(url)
+                    input_dic = dict(
+                        product_info=product_info_ins,
+                        image=img
+                    )
+                    ProductInfoImage.objects.create(**input_dic)
+                except:
+                    pass
+
+        print(f'{i+1}번째 등록완료')
     return print('성공')
 
 
 if __name__ == '__main__':
-    create_data(1)
+    create_data(1327)
