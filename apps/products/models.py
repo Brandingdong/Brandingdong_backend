@@ -74,8 +74,8 @@ class ProductInfo(models.Model):
 
 class SellingInfo(models.Model):
     product = models.OneToOneField('Product', on_delete=models.CASCADE)
-    _company_name = models.CharField('상호명', max_length=20, blank=True)
-    _representative = models.CharField('대표자', max_length=10, blank=True)
+    _company_name = models.CharField('상호명', max_length=50, blank=True)
+    _representative = models.CharField('대표자', max_length=20, blank=True)
     _license_num = models.CharField('사업자등록번호', max_length=100, blank=True)
     _mail_order_num = models.CharField('통신판매업번호', max_length=100, blank=True)
     _biz_location = models.CharField('사업장소재지', max_length=100, blank=True)
@@ -142,14 +142,14 @@ class SellingInfo(models.Model):
         self._biz_location = value
 
     @property
-    def business_hour(self):
-        if not self._business_hour:
+    def biz_hour(self):
+        if not self._biz_hour:
             return (f'주중 10:00 AM ~ 10:00 PM, 주말 및 공휴일 휴무')
-        return self._business_hour
+        return self._biz_hour
 
-    @business_hour.setter
-    def business_hour(self, value):
-        self._business_hour = value
+    @biz_hour.setter
+    def biz_hour(self, value):
+        self._biz_hour = value
 
     @property
     def company_email(self):
