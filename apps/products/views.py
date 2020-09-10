@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, pagination
 
 from products.models import Product, Category, SubCategory, Brand, ProductOption, ProductImage, ProductInfoImage, \
     ProductInfo, SellingInfo
@@ -7,6 +7,11 @@ from products.serializers import ProductSerializer, CategorySerializer, SubCateg
     SellingInfoSerializer
 
 '''카테고리'''
+
+
+class ProductPagination(pagination.CursorPagination):
+    page_size = 10
+    ordering = 'created_at'
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -18,8 +23,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
-    queryset = SubCategory.objects.all()
+    queryset = SubCategory.objects.all().select_related('category')
     serializer_class = SubCategorySerializer
+
 
 '''브랜드'''
 
@@ -57,15 +63,16 @@ class ProductInfoImageViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('brand').prefetch_related('main_img')
     serializer_class = ProductSerializer
+    pagination_class = ProductPagination
 
 
 '''제품정보'''
 
 
 class ProductInfoViewSet(viewsets.ModelViewSet):
-    queryset = ProductInfo.objects.all()
+    queryset = ProductInfo.objects.all().prefetch_related('info_img')
     serializer_class = ProductInfoSerializer
 
 
