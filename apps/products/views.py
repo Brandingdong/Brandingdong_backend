@@ -18,7 +18,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 
 class SubCategoryViewSet(viewsets.ModelViewSet):
-    queryset = SubCategory.objects.all()
+    queryset = SubCategory.objects.all().select_related('category')
     serializer_class = SubCategorySerializer
 
 '''브랜드'''
@@ -57,7 +57,7 @@ class ProductInfoImageViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related('brand').prefetch_related('main_img')
     serializer_class = ProductSerializer
 
 
@@ -65,7 +65,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class ProductInfoViewSet(viewsets.ModelViewSet):
-    queryset = ProductInfo.objects.all()
+    queryset = ProductInfo.objects.all().prefetch_related('info_img')
     serializer_class = ProductInfoSerializer
 
 
