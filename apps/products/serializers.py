@@ -64,7 +64,6 @@ class ProductInfoImageSerializer(serializers.ModelSerializer):
         model = ProductInfoImage
         fields = (
             'pk',
-            'product_info',
             'image',
         )
 
