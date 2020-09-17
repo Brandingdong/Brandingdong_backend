@@ -10,7 +10,7 @@ from products.serializers import ProductSerializer, CategorySerializer, SubCateg
 
 
 class ProductPagination(pagination.CursorPagination):
-    page_size = 10
+    page_size = 30
     ordering = 'created_at'
 
 
