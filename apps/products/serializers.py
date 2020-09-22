@@ -112,7 +112,6 @@ class ProductInfoSerializer(serializers.ModelSerializer):
         model = ProductInfo
 
         fields = (
-            'id',
             'product',
             'info_img',
             'text',
