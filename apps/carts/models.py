@@ -9,16 +9,14 @@ class Cart(models.Model):
     total_price = models.PositiveIntegerField()
 
     def total_price(self):
-        total = 0
-        for sub in self.items.all():
-            total += sub
+        total = CartItem.objects.filter(cart=self).annotate(total_price=sum('sub_total'))
 
         return total
 
 
 class CartItem(models.Model):
     cart = models.ForeignKey('Cart', related_name='items', on_delete=models.CASCADE)
-    products = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    products = models.ForeignKey('products.Product', related_name='items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     sub_total = models.PositiveIntegerField()
 
