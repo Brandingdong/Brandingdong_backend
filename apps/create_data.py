@@ -196,7 +196,7 @@ def create_product_option_data(data_count):
                         stock=rand_stock,
                     )
                     ProductOption.objects.create(**input_dic)
-                    count += 1
+                    count +=]]\
         print(f'제품{i+1} {count}종류 등록완료')
     return print('성공')
 
