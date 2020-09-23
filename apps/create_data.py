@@ -2,6 +2,7 @@ import requests
 from django.core.files.uploadedfile import SimpleUploadedFile
 import os
 import json
+from random import *
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.develop")
 file_path = "./crawling/"
@@ -11,7 +12,6 @@ import django
 django.setup()
 
 from products.models import *
-
 
 
 def simple_uploaded_file(url):
@@ -163,9 +163,43 @@ def create_data(data_count):
                 except:
                     pass
 
-        print(f'{i+1}번째 등록완료')
+        print(f'{i + 1}번째 등록완료')
+    return print('성공')
+
+
+def create_product_option_data(data_count):
+    for i in range(data_count):
+        count = 0
+        color_list = ['WH', 'BL', 'GY', 'RD', 'BL', 'GR', 'YL', 'PP', 'BR', 'etc']
+        size_list = ['XS', 'S', 'M', 'L']
+
+        with open(f'./crawling/{file_list[i]}', 'r') as json_file:
+            data = json.load(json_file)
+            # 카테고리
+        # 제품
+        title = data['title']
+        product_ins = Product.objects.get(pk=i + 1)
+        trf = ProductOption.objects.filter(product=product_ins).exists()
+        if not trf:
+            # 색 랜덤
+            rand_color = sample(color_list, randint(1, 3))
+            for color in rand_color:
+                # 사이즈 랜덤
+                rand_size = sample(size_list, randint(1, 4))
+                for size in rand_size:
+                    # 재고 랜덤
+                    rand_stock = randint(0, 20)
+                    input_dic = dict(
+                        product=product_ins,
+                        size=size,
+                        color=color,
+                        stock=rand_stock,
+                    )
+                    ProductOption.objects.create(**input_dic)
+                    count +=]]\
+        print(f'제품{i+1} {count}종류 등록완료')
     return print('성공')
 
 
 if __name__ == '__main__':
-    create_data(1327)
+    create_product_option_data(30)

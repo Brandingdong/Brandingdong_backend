@@ -41,7 +41,7 @@ class BrandSerializer(serializers.ModelSerializer):
 class ProductOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductOption
-        fields = ('id', 'product', 'color', 'size', 'stock')
+        fields = ('product', 'color', 'size', 'stock')
 
 
 '''제품페이지 상단 메인이미지'''
