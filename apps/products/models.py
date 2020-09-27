@@ -61,7 +61,7 @@ class ProductOption(models.Model):
         ('etc', 'etc'),
     ]
 
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='option')
     size = models.CharField(max_length=2, choices=SIZE_CHOICES, blank=True)
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, blank=True)
     stock = models.PositiveIntegerField(default=0)
