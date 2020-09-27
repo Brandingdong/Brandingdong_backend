@@ -32,12 +32,7 @@ class ProductTest(APITestCase):
         data = {
             'category': self.category.id,
             'sub_category': self.subcategory.id,
-            'brand': [
-                {
-                    'id': self.brand.id,
-                    'name': self.brand.name
-                }
-            ],
+            'brand': self.brand.id,
             'name': 'product test',
             'price': 100000,
             'discount_rate': "0",
@@ -46,7 +41,8 @@ class ProductTest(APITestCase):
             'status': 'FS'
         }
         response = self.client.post(url, data=data)
-        print(response.data['brand'])
+        print(data)
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.fail()
 
