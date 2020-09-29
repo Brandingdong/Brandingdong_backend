@@ -63,6 +63,7 @@ PROJECT_APPS = [
     'events',
     'products',
     'orders',
+    'carts',
 ]
 
 THIRD_PARTY_PACKAGES = [

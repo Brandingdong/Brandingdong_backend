@@ -1,8 +1,8 @@
 from rest_framework.routers import SimpleRouter
 
-from orders.views import OrderViewSet
+from carts.views import CartViewSet
 
 router = SimpleRouter(trailing_slash=False)
-router.register(r'order', OrderViewSet)
+router.register(r'cart', CartViewSet)
 
 urlpatterns = router.urls
