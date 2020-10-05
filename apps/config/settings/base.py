@@ -32,6 +32,10 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 env_path = os.path.dirname(os.path.dirname(BASE_DIR)) + '/.env'
 enf_file = environ.Env.read_env(env_file=env_path)
 
+#Media 저장소
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -57,6 +61,9 @@ DJANGO_DEFAULT_INSTALLED_APPS = [
 PROJECT_APPS = [
     'users.apps.UsersConfig',
     'events',
+    'products',
+    'orders',
+    'carts',
 ]
 
 THIRD_PARTY_PACKAGES = [

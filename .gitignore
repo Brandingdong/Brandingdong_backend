@@ -211,3 +211,6 @@ dmypy.json
 
 # static
 static/
+
+# Crawling Result
+crawling/
