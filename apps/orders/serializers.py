@@ -21,6 +21,11 @@ class OrderItemsSerializer(serializers.ModelSerializer):
             'option',
             'quantity',
         )
+        read_only_fields = (
+            'product',
+            'option',
+        )
+
 
 
 class OrderSerializer(serializers.ModelSerializer):

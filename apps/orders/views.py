@@ -12,6 +12,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
 
-class CartItemsViewSet(viewsets.ModelViewSet):
+class OrderItemsViewSet(viewsets.ModelViewSet):
     queryset = OrderItems.objects.all().select_related('product', 'option')
     serializer_class = OrderItemsSerializer

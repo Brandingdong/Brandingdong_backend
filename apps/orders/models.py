@@ -27,7 +27,7 @@ class Order(models.Model):
     destination = models.CharField('주소', max_length=250)
     detail_destination = models.CharField('상세주소', max_length=250)
 
-    delivery_request = models.CharField('배송요청사항', max_length=250)
+    delivery_request = models.CharField('배송요청사항', max_length=250, blank=True)
 
     point_use = models.PositiveIntegerField('포인트 사용', default=0)
     payment = models.CharField('결제 수단', choices=PAYMENT_CHOICES, max_length=100)
@@ -42,8 +42,8 @@ class Order(models.Model):
 
 class OrderItems(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='주문', related_name="order_items")
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    option = models.ForeignKey('ProductOption', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    option = models.ForeignKey(ProductOption, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

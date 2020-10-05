@@ -16,8 +16,8 @@ class Cart(models.Model):
 
 class CartItems(models.Model):
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, verbose_name='카트', related_name='cart_items')
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    option = models.ForeignKey('ProductOption', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    option = models.ForeignKey(ProductOption, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

@@ -19,6 +19,10 @@ class CartItemsSerializer(serializers.ModelSerializer):
             'option',
             'quantity',
         )
+        read_only_fields = (
+            'product',
+            'option',
+        )
 
 
 class CartSerializer(serializers.ModelSerializer):

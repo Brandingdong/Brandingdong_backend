@@ -16,14 +16,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+    category = CategorySerializer(read_only=True)
 
     class Meta:
         model = SubCategory
         fields = ('id', 'category', 'sub_name')
-        read_only_fields = (
-            'category',
-        )
+
 
 
 '''브랜드 카테고리'''

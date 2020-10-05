@@ -2,7 +2,7 @@ from rest_framework import routers
 
 from products import views
 
-router = routers.SimpleRouter(trailing_slash=False)
+router = routers.SimpleRouter(trailing_slash=True)
 router.register(r'detail', views.ProductViewSet)
 router.register(r'category', views.CategoryViewSet)
 router.register(r'subcategory', views.SubCategoryViewSet)
