@@ -36,6 +36,7 @@ class Product(models.Model):
     discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
     sales_count = models.PositiveIntegerField(default=0)
     delivery = models.CharField(max_length=3, choices=DELIVERY_CHOICES, default='OD')
+    delivery_fee = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=2, choices=SALE_STATUS, blank=True, default='FS')
@@ -262,10 +263,12 @@ class SellingInfo(models.Model):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품이미지', related_name='main_img')
+    product = models.ForeignKey('Product', blank=True, on_delete=models.CASCADE, verbose_name='상품이미지',
+                                related_name='main_img')
     image = models.ImageField(upload_to='main_img', verbose_name='이미지', blank=True)
 
 
 class ProductInfoImage(models.Model):
-    product_info = models.ForeignKey('ProductInfo', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지', related_name='info_img')
+    product_info = models.ForeignKey('ProductInfo', blank=True, on_delete=models.CASCADE, verbose_name='상품정보이미지',
+                                     related_name='info_img')
     image = models.ImageField(upload_to='info_img', verbose_name='이미지', blank=True)

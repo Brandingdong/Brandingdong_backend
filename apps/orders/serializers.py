@@ -4,46 +4,45 @@ from random import Random
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from orders.models import OrderItem, OrderInfo
-from products.serializers import ProductSerializer
+from orders.models import OrderItems, Order
+from products.serializers import ProductSerializer, ProductOptionSerializer
 
 User = get_user_model()
 
 
 class OrderItemsSerializer(serializers.ModelSerializer):
-    items = ProductSerializer(many=False)
+    product = ProductSerializer()
+    option = ProductOptionSerializer()
 
     class Meta:
-        model = OrderItem
-        fields = "__all__"
-
-
-class OrderDetailSerializer(serializers.ModelSerializer):
-    goods = OrderItemsSerializer(many=True)
-
-    class Meta:
-        model = OrderInfo
-        fields = "__all__"
+        model = OrderItems
+        fields = (
+            'product',
+            'option',
+            'quantity',
+        )
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    user = User
-
-    order_sn = serializers.CharField(read_only=True)
-    order_time = serializers.DateTimeField(read_only=True)
-
-    def generate_order_sn(self):
-        random_ins = Random()
-        order_sn = "{time_str}{userid}{ranstr}".format(time_str=time.strftime("%Y%m%d%H%M%S"),
-                                                       userid=self.context["request"].user.id,
-                                                       ranstr=random_ins.randint(10, 99))
-
-        return order_sn
-
-    def validate(self, attrs):
-        attrs["order_sn"] = self.generate_order_sn()
-        return attrs
+    order_items = OrderItemsSerializer(many=True, read_only=True)
 
     class Meta:
-        model = OrderInfo
-        fields = "__all__"
+        model = Order
+        fields = (
+            'user',
+            'name',
+            'phone',
+            'email',
+            'receiver',
+            'receiver_phone',
+            'zip_code',
+            'destination',
+            'detail_destination',
+            'delivery_request',
+            'order_items',
+            'point_use',
+            'payment',
+            'total_price',
+            'total_delivery_fee',
+            'final_price',
+        )
