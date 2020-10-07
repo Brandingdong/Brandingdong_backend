@@ -1,4 +1,5 @@
 from rest_framework import viewsets, pagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 from products.models import Product, Category, SubCategory, Brand, ProductOption, ProductImage, ProductInfoImage, \
     ProductInfo, SellingInfo
@@ -39,6 +40,8 @@ class BrandViewSet(viewsets.ModelViewSet):
 
 
 class ProductOptionViewSet(viewsets.ModelViewSet):
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['product']
     queryset = ProductOption.objects.all()
     serializer_class = ProductOptionSerializer
 
@@ -49,6 +52,7 @@ class ProductOptionViewSet(viewsets.ModelViewSet):
 class ProductImageViewSet(viewsets.ModelViewSet):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+
 
 
 '''제품소개이미지'''

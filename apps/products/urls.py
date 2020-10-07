@@ -13,5 +13,5 @@ router.register(r'info_image', views.ProductInfoImageViewSet)
 router.register(r'info', views.ProductInfoViewSet)
 router.register(r'sell_info', views.SellingInfoViewSet)
 
-
 urlpatterns = router.urls
+
